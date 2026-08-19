@@ -1,0 +1,102 @@
+[
+  {
+    "video_id": "vid_001",
+    "title": "Motorcycle carburetor fix",
+    "caption": "A man in a garage disassembles a motorcycle carburetor and explains each part while cleaning it.",
+    "transcript": "So this is the carburetor, you can see it's clogged here, I'm going to clean this jet out and explain why it matters for idle speed.",
+    "ocr_text": "STEP 3: CLEAN THE JET",
+    "objects": ["motorcycle", "carburetor", "tools", "garage", "hands"],
+    "emotions": ["focused", "calm"],
+    "category": "automotive_diy"
+  },
+  {
+    "video_id": "vid_002",
+    "title": "Air fryer chicken wings",
+    "caption": "A chef seasons chicken wings and places them in an air fryer basket in a home kitchen.",
+    "transcript": "Today we're making crispy wings, nothing fancy, just salt, pepper, and a bit of paprika before they go in.",
+    "ocr_text": "375F FOR 20 MIN",
+    "objects": ["chicken wings", "air fryer", "kitchen counter", "seasoning"],
+    "emotions": ["happy", "enthusiastic"],
+    "category": "cooking"
+  },
+  {
+    "video_id": "vid_003",
+    "title": "Motorcycle chain tension guide",
+    "caption": "Someone kneels beside a motorcycle rear wheel adjusting chain tension with a wrench while narrating each step.",
+    "transcript": "You want about an inch of play here, if it's too tight it'll wear out the sprockets fast, let me show you how to check it.",
+    "ocr_text": "CHAIN SLACK: 20-30MM",
+    "objects": ["motorcycle", "chain", "wrench", "rear wheel"],
+    "emotions": ["focused", "instructive"],
+    "category": "automotive_diy"
+  },
+  {
+    "video_id": "vid_004",
+    "title": "Silent air fryer salmon",
+    "caption": "A person places seasoned salmon fillets into an air fryer without speaking, background music plays.",
+    "transcript": "",
+    "ocr_text": "12 MIN 400F NO OIL NEEDED",
+    "objects": ["salmon", "air fryer", "cutting board", "lemon"],
+    "emotions": ["neutral"],
+    "category": "cooking"
+  },
+  {
+    "video_id": "vid_005",
+    "title": "City skyline drone shot",
+    "caption": "A drone glides over a city skyline at sunset showing skyscrapers and traffic below.",
+    "transcript": "",
+    "ocr_text": "",
+    "objects": ["skyline", "buildings", "sunset", "traffic"],
+    "emotions": ["calm"],
+    "category": "travel"
+  },
+  {
+    "video_id": "vid_006",
+    "title": "Dog learns new trick",
+    "caption": "A golden retriever repeatedly attempts to roll over while the owner laughs and encourages it off camera.",
+    "transcript": "Come on buddy, roll over, almost, good boy! There we go!",
+    "ocr_text": "",
+    "objects": ["dog", "living room", "treats"],
+    "emotions": ["happy", "excited"],
+    "category": "pets"
+  },
+  {
+    "video_id": "vid_007",
+    "title": "Espresso machine descaling",
+    "caption": "A barista runs a descaling solution through an espresso machine, explaining the maintenance process step by step.",
+    "transcript": "Every few months you need to descale, otherwise the pump gets damaged, I'm running this solution through now.",
+    "ocr_text": "DESCALE CYCLE: 15 MIN",
+    "objects": ["espresso machine", "cafe counter", "cleaning solution"],
+    "emotions": ["calm", "instructive"],
+    "category": "cooking"
+  },
+  {
+    "video_id": "vid_008",
+    "title": "Street food night market",
+    "caption": "A street vendor grills skewers over open flame at a crowded night market while customers wait.",
+    "transcript": "",
+    "ocr_text": "10 BAHT EACH",
+    "objects": ["skewers", "grill", "night market", "crowd"],
+    "emotions": ["lively"],
+    "category": "travel"
+  },
+  {
+    "video_id": "vid_009",
+    "title": "Electric scooter repair",
+    "caption": "A technician opens the panel of an electric scooter and explains how to replace the battery connector.",
+    "transcript": "The connector on these tends to corrode, I'm going to swap it and show you which wire goes where.",
+    "ocr_text": "WARNING: DISCONNECT BATTERY FIRST",
+    "objects": ["electric scooter", "battery", "tools", "wires"],
+    "emotions": ["focused", "instructive"],
+    "category": "automotive_diy"
+  },
+  {
+    "video_id": "vid_010",
+    "title": "Morning yoga flow",
+    "caption": "A woman moves through a sunrise yoga sequence on a rooftop, transitioning slowly between poses.",
+    "transcript": "Inhale, reach up, and slowly fold forward, let your head hang heavy.",
+    "ocr_text": "",
+    "objects": ["yoga mat", "rooftop", "sunrise"],
+    "emotions": ["calm", "peaceful"],
+    "category": "fitness"
+  }
+]

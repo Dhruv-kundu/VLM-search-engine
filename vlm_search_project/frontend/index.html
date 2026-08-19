@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel & Shorts Semantic Search — GGSIPU2614</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0E14;
+    --surface: #12151F;
+    --surface-2: #171B27;
+    --border: #232838;
+    --text: #E8EAED;
+    --text-muted: #8B93A1;
+    --amber: #FFB238;
+    --teal: #4FD1C5;
+    --danger: #FF6B6B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+  .filmstrip {
+    height: 10px;
+    width: 100%;
+    background: repeating-linear-gradient(90deg, var(--surface-2) 0 14px, var(--bg) 14px 22px);
+    border-bottom: 1px solid var(--border);
+  }
+  header {
+    padding: 48px 32px 32px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0 0 32px;
+    max-width: 560px;
+  }
+  .search-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .search-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 16px;
+    transition: border-color 0.15s ease;
+  }
+  .search-box:focus-within {
+    border-color: var(--amber);
+  }
+  .search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 14px 0;
+  }
+  .search-box input::placeholder { color: var(--text-muted); }
+  .scan-icon {
+    width: 16px; height: 16px;
+    color: var(--text-muted);
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  button.run {
+    background: var(--amber);
+    color: #1A1300;
+    border: none;
+    border-radius: 10px;
+    padding: 0 24px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  button.run:hover { opacity: 0.88; }
+  button.run:disabled { opacity: 0.5; cursor: default; }
+
+  .examples {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .example-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .example-chip:hover { border-color: var(--teal); color: var(--teal); }
+
+  main { max-width: 980px; margin: 0 auto; padding: 0 32px 80px; }
+
+  .status-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-line .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.1s ease;
+  }
+  .card:hover { border-color: var(--amber); transform: translateY(-2px); }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .meter {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 16px;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  .meter span {
+    width: 3px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+  .meter span.on { background: var(--amber); }
+
+  .caption { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; }
+
+  .match-block {
+    background: var(--surface-2);
+    border-left: 2px solid var(--teal);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 12.5px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .match-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .ocr-block { border-left-color: var(--amber); }
+  .ocr-block .label { color: var(--amber); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 7px;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  .empty .big { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--text); margin-bottom: 6px; }
+
+  /* Dashboard panel */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  .overlay.open { display: flex; }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    max-width: 640px;
+    width: 100%;
+    padding: 28px;
+  }
+  .panel-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 18px;
+  }
+  .panel-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; }
+  .close-btn {
+    background: none; border: 1px solid var(--border); color: var(--text-muted);
+    border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 16px;
+  }
+  .close-btn:hover { border-color: var(--danger); color: var(--danger); }
+  .panel-section { margin-bottom: 18px; }
+  .panel-section .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--amber);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 6px; display: block;
+  }
+  .panel-section p { font-size: 14px; line-height: 1.6; margin: 0; color: var(--text); }
+  .similar-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--teal);
+    background: none;
+    border: 1px solid var(--teal);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .similar-link:hover { background: rgba(79,209,197,0.1); }
+
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 20px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="filmstrip"></div>
+
+<header>
+  <div class="eyebrow">GGSIPU2614 // Multimodal Semantic Search</div>
+  <h1>Search reels by what's actually happening</h1>
+  <p class="sub">Query across speech, on-screen text, detected objects, and visual scene — not just captions and hashtags.</p>
+
+  <div class="search-row">
+    <div class="search-box">
+      <svg class="scan-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="queryInput" type="text" placeholder='e.g. "someone repairing a motorcycle while explaining the process"' />
+    </div>
+    <button class="run" id="searchBtn">Search</button>
+  </div>
+  <div class="examples" id="examples"></div>
+</header>
+
+<main>
+  <div class="status-line" id="statusLine" style="display:none;">
+    <span class="dot"></span><span id="statusText"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="emptyState">
+    <div class="big">No search yet</div>
+    Try one of the example queries above, or describe a scene in your own words.
+  </div>
+</main>
+
+<footer>vlm-reel-search-api · localhost:8000 · late-fusion demo index (10 sample videos)</footer>
+
+<div class="overlay" id="overlay">
+  <div class="panel" id="panel"></div>
+</div>
+
+<script>
+const API_URL = "http://127.0.0.1:8000";
+const API_KEY = "demo-key-123";
+
+const EXAMPLES = [
+  "someone repairing a motorcycle while explaining the process",
+  "cooking video where the chef uses an air fryer",
+  "dog learning a new trick",
+  "calm scenery at sunset"
+];
+
+const examplesEl = document.getElementById("examples");
+EXAMPLES.forEach(q => {
+  const chip = document.createElement("div");
+  chip.className = "example-chip";
+  chip.textContent = q;
+  chip.onclick = () => { document.getElementById("queryInput").value = q; runSearch(); };
+  examplesEl.appendChild(chip);
+});
+
+const grid = document.getElementById("grid");
+const emptyState = document.getElementById("emptyState");
+const statusLine = document.getElementById("statusLine");
+const statusText = document.getElementById("statusText");
+
+document.getElementById("searchBtn").onclick = runSearch;
+document.getElementById("queryInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") runSearch();
+});
+
+function scoreMeter(score) {
+  // 8-bar level meter, filled proportionally to score (scores are typically 0-0.4 range for TF-IDF fusion)
+  const bars = 8;
+  const filled = Math.max(1, Math.round(Math.min(score / 0.35, 1) * bars));
+  let html = '<div class="meter">';
+  for (let i = 0; i < bars; i++) {
+    const h = 4 + i * 1.6;
+    html += `<span style="height:${h}px" class="${i < filled ? 'on' : ''}"></span>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+async function runSearch() {
+  const query = document.getElementById("queryInput").value.trim();
+  if (!query) return;
+
+  statusLine.style.display = "flex";
+  statusText.textContent = `Scanning index for: "${query}"`;
+  grid.innerHTML = "";
+  emptyState.style.display = "none";
+
+  try {
+    const res = await fetch(`${API_URL}/search`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "api-key": API_KEY },
+      body: JSON.stringify({ query, top_k: 8 })
+    });
+    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const data = await res.json();
+    renderResults(data.results, query);
+  } catch (err) {
+    statusText.textContent = `Error: ${err.message}. Is the backend running at ${API_URL}?`;
+  }
+}
+
+function renderResults(results, query) {
+  if (!results.length) {
+    statusText.textContent = `No matches for "${query}"`;
+    emptyState.style.display = "block";
+    emptyState.querySelector(".big").textContent = "No matches";
+    return;
+  }
+  statusText.textContent = `${results.length} result${results.length > 1 ? "s" : ""} for "${query}"`;
+  grid.innerHTML = "";
+  results.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.onclick = () => openDashboard(r.video_id);
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-title">${r.title}</div>
+        ${scoreMeter(r.score)}
+      </div>
+      <div class="caption">${r.matched_caption || ""}</div>
+      ${r.matched_transcript ? `<div class="match-block"><span class="label">Transcript match</span>"${r.matched_transcript}"</div>` : ""}
+      ${r.matched_ocr ? `<div class="match-block ocr-block"><span class="label">On-screen text</span>${r.matched_ocr}</div>` : ""}
+      <div class="tags">${r.matched_tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+async function openDashboard(videoId) {
+  const overlay = document.getElementById("overlay");
+  const panel = document.getElementById("panel");
+  panel.innerHTML = `<p style="color:var(--text-muted)">Loading breakdown...</p>`;
+  overlay.classList.add("open");
+
+  try {
+    const res = await fetch(`${API_URL}/videos/${videoId}`, { headers: { "api-key": API_KEY } });
+    const v = await res.json();
+    panel.innerHTML = `
+      <div class="panel-top">
+        <div class="panel-title">${v.title}</div>
+        <button class="close-btn" onclick="document.getElementById('overlay').classList.remove('open')">✕</button>
+      </div>
+      <div class="panel-section"><span class="label">Scene caption</span><p>${v.caption}</p></div>
+      <div class="panel-section"><span class="label">Transcript</span><p>${v.transcript || "— no speech detected —"}</p></div>
+      <div class="panel-section"><span class="label">On-screen text (OCR)</span><p>${v.ocr_text || "— none detected —"}</p></div>
+      <div class="panel-section"><span class="label">Detected objects</span><div class="tags">${v.objects.map(o => `<span class="tag">${o}</span>`).join("")}</div></div>
+      <div class="panel-section"><span class="label">Emotion signals</span><div class="tags">${v.emotions.map(e => `<span class="tag">${e}</span>`).join("")}</div></div>
+      <button class="similar-link" onclick="findSimilar('${v.video_id}')">Find similar videos →</button>
+    `;
+  } catch (err) {
+    panel.innerHTML = `<p style="color:var(--danger)">Failed to load: ${err.message}</p>`;
+  }
+}
+
+async function findSimilar(videoId) {
+  document.getElementById("overlay").classList.remove("open");
+  statusLine.style.display = "flex";
+  statusText.textContent = `Finding videos similar to ${videoId}...`;
+  const res = await fetch(`${API_URL}/search/similar/${videoId}?top_k=6`, {
+    method: "POST",
+    headers: { "api-key": API_KEY }
+  });
+  const data = await res.json();
+  renderResults(data.results, `similar to ${videoId}`);
+}
+</script>
+
+</body>
+</html>
